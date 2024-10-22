@@ -82,11 +82,11 @@ int Card::rankToValue() const
         case Rank::TEN:
             return 10;
         case Rank::JACK:
-            return 10;
+            return 11;
         case Rank::QUEEN:
-            return 10;
+            return 12;
         case Rank::KING:
-            return 10;
+            return 13;
         default:
             return 0;
     }
