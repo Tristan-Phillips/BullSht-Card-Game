@@ -1,5 +1,5 @@
 #include "Deck.h"
-
+#include <iostream>
 Deck::~Deck()
 {
     //dtor
@@ -21,6 +21,7 @@ void Deck::reset()
 void Deck::shuffle()
 {
     random_shuffle(m_cards.begin(), m_cards.end());
+    cout << "Deck shuffled" << endl;
 }
 
 Card Deck::drawCard()

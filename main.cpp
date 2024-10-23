@@ -1,11 +1,11 @@
 #include <iostream>
-#include "GameState.h"
+#include "Game.h"
 
 using namespace std;
 
 int main()
 {
-    GameState game(4);
-    cout << game.allPlayersToString() << endl;
+    Game game(4);
+    game.startGame();    
     return 0;
 }

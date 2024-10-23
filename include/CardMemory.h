@@ -25,8 +25,6 @@ class CardMemory
         void forgetAll();
         void decayBeliefs(double decayFactor);
 
-        std::string toString() const;
-
     private:
         std::unordered_map<Card, std::pair<CardLocation, double>, Card::Hash> m_cardBeliefs;
 };

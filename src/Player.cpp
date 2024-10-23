@@ -16,3 +16,12 @@ void Player::clearHand()
     m_hand.clear();
     m_memory.forgetAll();
 }
+
+string Player::handToString() const
+{
+    string handString = "";
+    for (const Card& card : m_hand) {
+        handString += card.toString() + " : ";
+    }
+    return handString;
+}

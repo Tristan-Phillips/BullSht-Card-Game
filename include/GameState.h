@@ -16,7 +16,9 @@ class GameState
         }
         virtual ~GameState();
 
-        string allPlayersToString() const;
+        shared_ptr<Player> getPlayer(int playerIndex) const { return m_players[playerIndex]; }
+
+        void startGame();
 
     private:
         vector<shared_ptr<Player>> m_players;

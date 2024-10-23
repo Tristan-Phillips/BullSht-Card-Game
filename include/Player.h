@@ -34,6 +34,8 @@ class Player
         void forgetAllMemory() { m_memory.forgetAll(); }
         void decayMemory(double decayFactor) { m_memory.decayBeliefs(decayFactor); }
 
+        string handToString() const;
+
     private:
         string m_name;
         vector<Card> m_hand;

@@ -19,6 +19,8 @@ class Deck
 
         bool isEmpty() const { return m_cards.empty(); }
 
+        int size() const { return m_cards.size(); }
+
     private:
         int m_numberOfDecks;
         vector<Card> m_cards;
