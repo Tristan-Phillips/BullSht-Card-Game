@@ -1,18 +1,18 @@
 #ifndef CARD_H
 #define CARD_H
-
 #include <string>
-
 using namespace std;
 
-enum class Suit {
+enum class Suit
+{
     HEARTS,
     DIAMONDS,
     CLUBS,
     SPADES
 };
 
-enum class Rank {
+enum class Rank
+{
     ACE = 1,
     TWO,
     THREE,
@@ -30,26 +30,31 @@ enum class Rank {
 
 class Card
 {
-public:
-    Card(Suit suit, Rank rank) : m_suit(suit), m_rank(rank) {}
-    virtual ~Card();
+    public:
+        Card(Suit suit, Rank rank) : m_suit(suit), m_rank(rank) {}
+        virtual ~Card();
 
-    // Accessors
-    Suit getSuit() const { return m_suit; }
-    Rank getRank() const { return m_rank; }
+        Suit getSuit() const { return m_suit; }
+        Rank getRank() const { return m_rank; }
 
-    // Utility
-    string toString() const;
+        int rankToValue() const;
+        string suitToString() const;
+        string rankToString() const;
+        string toString() const;
 
-private:
-    // Methods
-    string suitToString() const;
-    string rankToString() const;
-    int rankToValue() const;
+        bool operator==(const Card& other) const {
+            return m_suit == other.m_suit && m_rank == other.m_rank;
+        }
 
-    // Attributes
-    Suit m_suit;
-    Rank m_rank;
+        struct Hash {
+            size_t operator()(const Card& card) const {
+                return hash<int>()(static_cast<int>(card.getSuit())) ^ hash<int>()(static_cast<int>(card.getRank()));
+            }
+        };
+
+    private:
+        Suit m_suit;
+        Rank m_rank;
 };
 
 #endif // CARD_H

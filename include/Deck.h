@@ -1,31 +1,27 @@
 #ifndef DECK_H
 #define DECK_H
-
 #include "Card.h"
 #include <vector>
 #include <algorithm>
-#include <random>
-#include <ctime>
 #include <stdexcept>
 
 class Deck
 {
-public:
-    Deck(int numberOfDecks = 1) : m_numberOfDecks(numberOfDecks) {
-        reset();
-    }
-    virtual ~Deck();
+    public:
+        Deck(int numberOfDecks = 1) : m_numberOfDecks(numberOfDecks) {
+            reset();
+        }
+        virtual ~Deck();
 
-    void shuffle();
-    Card draw();
-    void reset();
-    bool isEmpty() const;
-    int size() const;
+        void reset();
+        void shuffle();
+        Card drawCard();
 
-private:
-    // Attributes
-    int m_numberOfDecks;
-    std::vector<Card> m_cards;
+        bool isEmpty() const { return m_cards.empty(); }
+
+    private:
+        int m_numberOfDecks;
+        vector<Card> m_cards;
 };
 
 #endif // DECK_H
