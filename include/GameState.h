@@ -2,6 +2,7 @@
 #define GAMESTATE_H
 #include "Deck.h"
 #include "Player.h"
+#include "HardValidator.h"
 #include <vector>
 #include <memory>
 #include <string>
@@ -25,7 +26,6 @@ class GameState
         int m_numberOfPlayers;
         
         Deck m_deck;
-        vector<Card> m_discardPile;
 };
 
 #endif // GAMESTATE_H

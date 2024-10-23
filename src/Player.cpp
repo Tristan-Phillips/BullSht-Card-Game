@@ -21,7 +21,11 @@ string Player::handToString() const
 {
     string handString = "";
     for (const Card& card : m_hand) {
-        handString += card.toString() + " : ";
+        handString += card.toString();
+        if (card == m_hand.back()) {
+            break;
+        }
+        handString += " : ";
     }
     return handString;
 }
