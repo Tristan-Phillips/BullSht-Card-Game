@@ -16,16 +16,20 @@ class GameState
             }
         }
         virtual ~GameState();
-
         shared_ptr<Player> getPlayer(int playerIndex) const { return m_players[playerIndex]; }
-
         void startGame();
+        int getPlayerCount() const { return m_numberOfPlayers; }
+
+        // Discard Pile
+        void addToDiscardPile(Card card) { 
+            m_discardPile.push_back(card); 
+        }
 
     private:
         vector<shared_ptr<Player>> m_players;
         int m_numberOfPlayers;
-        
         Deck m_deck;
+        vector<Card> m_discardPile;
 };
 
 #endif // GAMESTATE_H

@@ -8,7 +8,6 @@ class HardValidator
 {
     public:
         HardValidator() = default;
-
         bool allCardsUnique(const vector<Card>& cards) const;
 };
 

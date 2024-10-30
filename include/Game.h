@@ -10,11 +10,12 @@ class Game
             m_gameState = make_unique<GameState>(numberOfPlayers);
         }
         virtual ~Game();
-
         void startGame();
 
     private:
         unique_ptr<GameState> m_gameState;
+        void activeGame();
+        void gameStats();
 };
 
 #endif // GAME_H

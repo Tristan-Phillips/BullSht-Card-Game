@@ -29,3 +29,20 @@ string Player::handToString() const
     }
     return handString;
 }
+
+vector<Card> Player::decideCardsToPlay()
+{
+    // TEMP: Player plays first card in hand
+    vector<Card> card;
+    if (!m_hand.empty()) {
+        card.push_back(m_hand.front());
+        m_hand.erase(m_hand.begin());
+    }
+    return card;
+}
+
+bool Player::decideCallBullshit() const
+{
+    // TEMP: Player never calls bullshit
+    return false;
+}

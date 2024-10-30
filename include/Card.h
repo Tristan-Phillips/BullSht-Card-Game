@@ -33,19 +33,15 @@ class Card
     public:
         Card(Suit suit, Rank rank) : m_suit(suit), m_rank(rank) {}
         virtual ~Card();
-
         Suit getSuit() const { return m_suit; }
         Rank getRank() const { return m_rank; }
-
         int rankToValue() const;
         string suitToString() const;
         string rankToString() const;
         string toString() const;
-
         bool operator==(const Card& other) const {
             return m_suit == other.m_suit && m_rank == other.m_rank;
         }
-
         struct Hash {
             size_t operator()(const Card& card) const {
                 return hash<int>()(static_cast<int>(card.getSuit())) ^ hash<int>()(static_cast<int>(card.getRank()));

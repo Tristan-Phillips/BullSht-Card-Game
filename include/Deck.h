@@ -16,9 +16,7 @@ class Deck
         void reset();
         void shuffle();
         Card drawCard();
-
         bool isEmpty() const { return m_cards.empty(); }
-
         int size() const { return m_cards.size(); }
 
     private:
