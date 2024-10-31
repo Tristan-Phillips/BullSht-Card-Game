@@ -1,3 +1,7 @@
+/*
+    Currently un-implemented class
+*/
+
 #ifndef PLAYERSTRATEGY_H
 #define PLAYERSTRATEGY_H
 #include "Card.h"
