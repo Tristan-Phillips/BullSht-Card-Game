@@ -48,6 +48,12 @@ class DiscardPile
             return std::find(m_discardPile.begin(), m_discardPile.end(), card) != m_discardPile.end();
         }
 
+        std::vector<Card> collectDiscardPile() {
+            std::vector<Card> collectedCards = std::move(m_discardPile);
+            m_discardPile.clear();
+            return collectedCards;
+        }
+
     private:
         std::vector<Card> m_discardPile;
 

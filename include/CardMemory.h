@@ -15,7 +15,8 @@ class Card; // Forward declaration
 enum class CardLocation {
     InOwnHand,
     InOpponentHand,
-    InDiscardPile
+    InDiscardPile,
+    Unknown
 };
 
 class CardMemory
@@ -30,22 +31,22 @@ class CardMemory
             m_cardBeliefs[card] = {location, confidence};   
         }
 
-        std::pair<CardLocation, double> getBelief(Card& card) const {
+        std::pair<CardLocation, double> getBelief(const Card& card) const {
             auto it = m_cardBeliefs.find(card);
             if (it != m_cardBeliefs.end()) {
                 return it->second;
             }
-            return {CardLocation::InOpponentHand, 0.0};
+            return {CardLocation::Unknown, 0.0}; // Default belief
         }
 
-        void forget(Card& card) {
+        void forget(const Card& card) {
             m_cardBeliefs.erase(card);
         }
 
         void forgetAll() {
             m_cardBeliefs.clear();
         }
-        
+
         void decayBeliefs(double decayFactor) {
             if (decayFactor < 0.0 || decayFactor > 1.0) {
                 throw std::invalid_argument("Decay factor must be between 0 and 1");

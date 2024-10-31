@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <stdexcept>
 
 using std::string;
 using std::vector;
@@ -16,7 +17,9 @@ using std::vector;
 class Player
 {
     public:
-        Player(string name, bool isHuman = false) : m_name(name), m_isHuman(isHuman), m_memory() {};
+        Player(string name, bool isHuman = false) 
+            : m_name(name), m_isHuman(isHuman), m_memory() {};
+
         ~Player() = default;
 
         // Player Details
@@ -34,7 +37,7 @@ class Player
         }
 
         int getHandSize() const { 
-            return m_hand.size(); 
+            return static_cast<int>(m_hand.size());
         }
 
         void addCardToHand(Card card) {
@@ -47,12 +50,20 @@ class Player
             m_memory.forgetAll();
         }
 
-        vector<Card> getHand() const { 
+        const vector<Card>& getHand() const { 
             return m_hand; 
         }
 
-        void removeCardFromHand(Card card) { 
-            m_hand.erase(std::remove(m_hand.begin(), m_hand.end(), card), m_hand.end()); 
+        void removeCardFromHand(const Card& card) { 
+            std::cout << "Removing card from hand: " << card.toString() << std::endl;
+        
+            auto it = std::find(m_hand.begin(), m_hand.end(), card);
+            if (it != m_hand.end()) {
+                m_hand.erase(it);
+            } else {
+                throw std::runtime_error("Card not found in hand");
+            }
+            std::cout << "Remaining Hand: " << handToString() << std::endl;
         }
 
         // Decision Making
@@ -61,7 +72,6 @@ class Player
             vector<Card> card;
             if (!m_hand.empty()) {
                 card.push_back(m_hand.front());
-                m_hand.erase(m_hand.begin());
             }
             return card;
         }
@@ -76,11 +86,11 @@ class Player
             m_memory.updateBelief(card, location, confidence); 
         }
 
-        std::pair<CardLocation, double> getMemory(Card& card) const { 
+        std::pair<CardLocation, double> getMemory(const Card& card) const { 
             return m_memory.getBelief(card); 
         }
 
-        void forgetMemory(Card& card) { 
+        void forgetMemory(const Card& card) { 
             m_memory.forget(card); 
         }
 
@@ -91,7 +101,7 @@ class Player
         void decayMemory(double decayFactor) { 
             m_memory.decayBeliefs(decayFactor); 
         }
-        
+
         string handToString() const {
             string handString = "";
             for (const Card& card : m_hand) {
@@ -99,7 +109,7 @@ class Player
                 if (card == m_hand.back()) {
                     break;
                 }
-                handString += " : ";
+                handString += "\n";
             }
             return handString;
         }

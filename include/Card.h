@@ -41,6 +41,7 @@ class Card
         Suit getSuit() const {
             return m_suit;
         }
+
         Rank getRank() const {
             return m_rank;
         }
@@ -48,6 +49,7 @@ class Card
         int rankToValue() const {
             return static_cast<int>(m_rank);
         }
+
         string suitToString() const {
             switch (m_suit)
             {
@@ -63,6 +65,7 @@ class Card
                     return "Unknown";
             }
         }
+
         string rankToString() const {
             switch (m_rank)
             {
@@ -102,7 +105,7 @@ class Card
         }
 
         bool operator==(const Card& other) const {
-            return m_suit == other.m_suit && m_rank == other.m_rank;
+            return this->getSuit() == other.getSuit() && this->getRank() == other.getRank();
         }
 
         struct Hash {

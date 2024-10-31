@@ -4,19 +4,22 @@
 
 #ifndef DECK_H
 #define DECK_H
+
 #include "Card.h"
 #include "DiscardPile.h"
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
 #include <iostream>
+#include <random>
 
 class Deck
 {
     public:
-        Deck(int numberOfDecks = 1) : m_numberOfDecks(numberOfDecks) {
+        explicit Deck(int numberOfDecks = 1) : m_numberOfDecks(numberOfDecks) {
             reset();
         }
+
         ~Deck() = default;
 
         void reset() {
@@ -32,8 +35,10 @@ class Deck
         }
 
         void shuffle() {
-            random_shuffle(m_cards.begin(), m_cards.end());
-            cout << "Deck shuffled" << endl;
+            std::random_device rd;
+            std::mt19937 g(rd());
+            std::shuffle(m_cards.begin(), m_cards.end(), g);
+            std::cout << "Deck has been shuffled" << std::endl;
         }
 
         Card drawCard() {
@@ -51,23 +56,23 @@ class Deck
         }
 
         int size() const {
-            return m_cards.size();
+            return static_cast<int>(m_cards.size());
         }
 
-        void addToDiscardPile(vector<Card> cards) {
+        void addToDiscardPile(const std::vector<Card>& cards) {
             m_discardPile.addToDiscardPile(cards);
         }
 
-        vector<Card> getDiscardPile() {
-            return m_discardPile.getDiscardPile();
+        std::vector<Card> getDiscardPile() {
+            return m_discardPile.collectDiscardPile();
         }
 
         void print() const {
-            cout << "Deck Contains: " << size() << " cards:\n";
+            cout << "Deck Contains: " << size() << " cards" << std::endl;
             for (const auto& card : m_cards) {
-                cout << card.toString() << "\n";
+                std::cout << card.toString() << std::endl;
             }
-            m_discardPile.print();
+            printDiscardPile();
         }
 
         void printDiscardPile() const {
@@ -76,7 +81,7 @@ class Deck
 
     private:
         int m_numberOfDecks;
-        vector<Card> m_cards;
+        std::vector<Card> m_cards;
         DiscardPile m_discardPile;
 };
 
